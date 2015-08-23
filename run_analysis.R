@@ -1,7 +1,7 @@
 
 # This method get the names of the features file and return it as a vector
 getFeaturesNames <- function(){
-    features_titles <- features <- read.table("./data/features.txt")
+    features_titles <- features <- read.table("./UCI HAR Dataset/features.txt")
     features_names <-  features[,2]
     features_names
 }
@@ -11,14 +11,14 @@ getFeaturesNames <- function(){
 # activities and features together and using getFeaturesNames method to set columns
 # names, return the test dataset as a data frame
 createTestDataSet <- function(){
-    subject_test <- read.table('./data/test/subject_test.txt', 
+    subject_test <- read.table('./UCI HAR Dataset/test/subject_test.txt', 
                                header=FALSE, col.names=c('id_subject'))
-    activities_test <- read.table('./data/test/y_test.txt', 
+    activities_test <- read.table('./UCI HAR Dataset/test/y_test.txt', 
                                   header=FALSE, col.names=c('id_activity'))
     
     features_names <- getFeaturesNames()
     
-    features_test <- read.table('./data/test/X_test.txt', 
+    features_test <- read.table('./UCI HAR Dataset/test/X_test.txt', 
                                 header=FALSE, col.names=features_names)
     
     testData <- cbind(subject_test, activities_test, features_test)
@@ -29,14 +29,14 @@ createTestDataSet <- function(){
 # activities and features together and using getFeaturesNames method to set columns
 # names, return the train dataset as a data frame
 createTrainDataSet <- function(){
-    subject_train <- read.table('./data/train/subject_train.txt', 
+    subject_train <- read.table('./UCI HAR Dataset/train/subject_train.txt', 
                                 header=FALSE, col.names=c('id_subject'))
-    activities_train <- read.table('./data/train/y_train.txt', 
+    activities_train <- read.table('./UCI HAR Dataset/train/y_train.txt', 
                                    header=FALSE, col.names=c('id_activity'))
     
     features_names <- getFeaturesNames()
     
-    features_train <- read.table('./data/train/X_train.txt', 
+    features_train <- read.table('./UCI HAR Dataset/train/X_train.txt', 
                                  header=FALSE, col.names=features_names)
     
     trainData <- cbind(subject_train, activities_train, features_train)
@@ -69,7 +69,7 @@ selectMeanAndStdFeaturesInMergedDataSet <- function(){
 # of the numeric ones, return the correctly labeled dataset as a data frame
 labelActivities <- function(){
     selectedData <- selectMeanAndStdFeaturesInMergedDataSet()
-    activitites_titles <- read.table("./data/activity_labels.txt",
+    activitites_titles <- read.table("./UCI HAR Dataset/activity_labels.txt",
                                      header=FALSE, 
                                      col.names=c('id_activity', 'activity'))
     activity <-  activitites_titles[selectedData[, 2],2]
@@ -86,8 +86,8 @@ getTidyDataSet <- function(){
     meltedData <- melt(correctlyLabeledData,
                        id=c("id_subject","id_activity","activity"))
     tidyData <- dcast(meltedData,
-                       id_subject + id_activity + activity ~ variable,
-                       mean)
+                      id_subject + id_activity + activity ~ variable,
+                      mean)
     tidyData
 }
 
