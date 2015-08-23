@@ -7,7 +7,7 @@ This project is based on a experiment[1] where 30 volunteers were participant of
 * Clone the project with github
 * Download ``reshape2`` library and add it to R Studio library folder
 * Put the ``run_analysis.R`` file in the same place that ``UCI HAR Dataset`` folder
-* Set the project as working directory with the ´´setwd()´´ command
+* Set the project as working directory with the ``setwd()`` command
 * Load the ``run_analysis.R`` file using the following command: ``source("run_analysis.R")``
 * Look for ``tidyData.txt`` file in the project folder
 * To verify the data you can use the ``read.table("tidyData.txt")`` command
